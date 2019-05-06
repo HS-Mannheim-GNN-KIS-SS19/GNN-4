@@ -18,6 +18,8 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import static java.lang.Float.max;
+
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 
@@ -98,13 +100,13 @@ public class MainFrame extends JFrame {
 		out[0][8] = image.pixelAsFloat(x + 1, y + 1);
 
 		// --- activate first convolutional layer with ReLu output
-		
-		// ---------------------------------------------------------------------
-		// ---------------------------------------------------------------------
-		// ----------------------- INSERT CODE HERE ----------------------------
-		// ---------------------------------------------------------------------
-		// ---------------------------------------------------------------------
-		
+		for (int neuronIndex = 0; neuronIndex < NEURON_AMOUNT; neuronIndex++) {
+			int sum = 0;
+			for (int pixelIndex = 0; pixelIndex < PIXEL_AMOUNT; pixelIndex++) {
+				sum += out[0][pixelIndex] * convWeight[neuronIndex][pixelIndex];
+			}
+			out[1][neuronIndex] = max(0, sum);
+		}
 		return out;
 	}
 
